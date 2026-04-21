@@ -1225,7 +1225,7 @@
     <!-- VIDEO -->
     <div class="video-section reveal">
       <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/uVMZz4IEH-8" title="NodeClip demo" frameborder="0"
+        <iframe src="https://www.youtube.com/embed/7iixTfOFOsI" title="NodeClip demo" frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen>
         </iframe>
@@ -1263,11 +1263,11 @@
         a node, connections define the order.</p>
       <div class="ba-grid">
         <div class="ba-card reveal-scale">
-          <img src="/assets/img/31.png" alt="Traditional editor timeline" style="opacity:0.7;">
+          <img src="./assets/img/31.png" alt="Traditional editor timeline" style="opacity:0.7;">
           <div class="ba-label before">Before</div>
         </div>
         <div class="ba-card reveal-scale" style="border-color:rgba(0,201,107,0.2);">
-          <img src="/assets/img/37.png" alt="NodeClip node graph">
+          <img src="./assets/img/37.png" alt="NodeClip node graph">
           <div class="ba-label after">After</div>
         </div>
       </div>
@@ -1380,27 +1380,27 @@
     </div>
     <div class="gallery-scroll" id="galleryScroll">
       <div class="gallery-item">
-        <img src="/assets/img/36.png" alt="Node graph set 1">
+        <img src="./assets/img/36.png" alt="Node graph set 1">
         <div class="gallery-item-label">Set 1 — Two nodes connected</div>
       </div>
       <div class="gallery-item">
-        <img src="/assets/img/37.png" alt="Node graph set 2 with 3 nodes">
+        <img src="./assets/img/37.png" alt="Node graph set 2 with 3 nodes">
         <div class="gallery-item-label">Set 2 — Multi-node chain</div>
       </div>
       <div class="gallery-item">
-        <img src="/assets/img/42.png" alt="Template mode">
+        <img src="./assets/img/42.png" alt="Template mode">
         <div class="gallery-item-label">Template Mode — Named slots</div>
       </div>
       <div class="gallery-item">
-        <img src="/assets/img/43.png" alt="Node types">
+        <img src="./assets/img/43.png" alt="Node types">
         <div class="gallery-item-label">Node Types — Split screen</div>
       </div>
       <div class="gallery-item">
-        <img src="/assets/img/44.png" alt="Cron jobs">
+        <img src="./assets/img/44.png" alt="Cron jobs">
         <div class="gallery-item-label">Cron Jobs — Scheduled renders</div>
       </div>
       <div class="gallery-item">
-        <img src="/assets/img/54.png" alt="Before after">
+        <img src="./assets/img/54.png" alt="Before after">
         <div class="gallery-item-label">Before vs After — Visual clarity</div>
       </div>
     </div>
@@ -1410,7 +1410,7 @@
   <section class="dino-section">
     <div class="dino-inner">
       <div class="dino-img-wrap">
-        <img class="dino-img" src="/assets/img/dinosauro.png" alt="NodeClip mascot dinosaur holding a video editor">
+        <img class="dino-img" src="./assets/img/dinosauro.png" alt="NodeClip mascot dinosaur holding a video editor">
       </div>
       <div class="dino-content">
         <div class="section-label">Built for creators</div>
@@ -1512,8 +1512,8 @@
           </div>
           <form id="waitlistForm">
             <div class="form-row">
-              <input class="form-input" type="text" id="name" placeholder="Your name" required>
-              <input class="form-input" type="email" id="email" placeholder="Your email" required>
+              <input class="form-input" type="text" id="name" name="name" placeholder="Your name" required>
+              <input class="form-input" type="email" id="email" name="email" placeholder="Your email" required>
             </div>
             <div class="form-checkbox-row">
               <input class="form-checkbox" type="checkbox" id="referFriends">
@@ -1522,11 +1522,15 @@
             </div>
             <div id="friendsEmails">
               <div class="friends-grid">
-                <input class="form-input" type="email" placeholder="Friend #1">
-                <input class="form-input" type="email" placeholder="Friend #2">
-                <input class="form-input" type="email" placeholder="Friend #3">
+                <input class="form-input" type="email" name="friend1" placeholder="Friend #1">
+                <input class="form-input" type="email" name="friend2" placeholder="Friend #2">
+                <input class="form-input" type="email" name="friend3" placeholder="Friend #3">
               </div>
             </div>
+            <!-- Campi nascosti per Apps Script -->
+            <input type="hidden" name="action" value="subscribe">
+            <input type="hidden" name="source" value="waitlist">
+            <input type="hidden" name="plan" value="free">
             <button type="submit" class="form-submit">Join the Waitlist →</button>
             <button type="button" id="skipWaitBtn" class="skip-line">I can't wait — get priority access 🚀</button>
           </form>
@@ -1546,9 +1550,13 @@
         </div>
         <form id="buyNowForm" style="position:relative;z-index:1;">
           <div class="form-row" style="margin-top:1rem;">
-            <input class="form-input" type="text" placeholder="Your name" required>
-            <input class="form-input" type="email" placeholder="Your email" required>
+            <input class="form-input" type="text" name="name" placeholder="Your name" required>
+            <input class="form-input" type="email" name="email" placeholder="Your email" required>
           </div>
+          <!-- Campi nascosti per Apps Script -->
+          <input type="hidden" name="action" value="subscribe">
+          <input type="hidden" name="source" value="priority">
+          <input type="hidden" name="plan" value="paid_49">
           <ul class="priority-perks">
             <li>Skip the entire waitlist</li>
             <li>Get NodeClip 30 days before everyone else</li>
@@ -1753,19 +1761,72 @@
       document.getElementById('waitlistSection').style.display = 'block';
       document.getElementById('waitlistSection').scrollIntoView({ behavior: 'smooth' });
     });
+
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxq3YJTj5FL-v6LAeJ5fddPrQya8hp99PFA1Mh6_Dt0rL7WMJfh1X3TqqBMeh-nwb3TIQ/exec";
+
+    /**
+     * Invia un form ad Apps Script via POST URL-encoded
+     * @param {HTMLFormElement} form
+     * @param {HTMLButtonElement|null} btn
+     * @param {function} onSuccess Callback per UI feedback
+     */
+    async function submitToSheet(form, btn, onSuccess) {
+      if (btn) btn.disabled = true;
+      const originalText = btn ? btn.textContent : '';
+      if (btn) btn.textContent = 'Sending...';
+
+      const formData = new FormData(form);
+      const params = new URLSearchParams();
+      formData.forEach(function (value, key) {
+        params.append(key, value);
+      });
+
+      try {
+        const resp = await fetch(SCRIPT_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: params.toString(),
+        });
+
+        const result = await resp.json();
+
+        if (result.status === "OK") {
+          if (onSuccess) onSuccess();
+          form.reset();
+        } else {
+          alert("Error: " + (result.message || "unknown error"));
+          if (btn) {
+            btn.disabled = false;
+            btn.textContent = originalText;
+          }
+        }
+      } catch (err) {
+        alert("Submission failed: " + err.message);
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = originalText;
+        }
+      }
+    }
+
     document.getElementById('waitlistForm').addEventListener('submit', e => {
       e.preventDefault();
       const btn = e.target.querySelector('.form-submit');
-      btn.textContent = '✓ You\'re on the list!';
-      btn.style.background = '#004a28';
-      btn.style.color = 'var(--accent)';
+      submitToSheet(e.target, btn, () => {
+        btn.textContent = '✓ You\'re on the list!';
+        btn.style.background = '#004a28';
+        btn.style.color = 'var(--accent)';
+      });
     });
+
     document.getElementById('buyNowForm').addEventListener('submit', e => {
       e.preventDefault();
       const btn = e.target.querySelector('.btn-gold');
-      btn.textContent = '✓ Purchase received!';
-      btn.style.background = '#5a4a00';
-      btn.style.color = 'var(--gold)';
+      submitToSheet(e.target, btn, () => {
+        btn.textContent = '✓ Priority access registered!';
+        btn.style.background = '#5a4a00';
+        btn.style.color = 'var(--gold)';
+      });
     });
 
     // ===== SMOOTH ANCHOR SCROLL =====
